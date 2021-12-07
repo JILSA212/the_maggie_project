@@ -1,0 +1,134 @@
+<html>
+<head>
+	<title> Project Maggie </title>
+	<style>
+		*
+		{
+			font-family: comic Sans MS;
+			font-weight: 800;
+		}
+		div
+		{
+			display: inline-block;
+			padding: 5%;
+			margin-right: 10%;
+		}
+		button
+		{
+			width: 300px;
+			height: 100px;
+			background-image: linear-gradient(red, yellow);
+			margin: 5%;
+			border-radius: 50px;
+			font-size: 20px;
+			color: #e0f7fa;
+		}
+		h2
+		{
+			width: 500px;
+			height: 100px;
+			font-size: 3em;
+			color: #7b1fa2;
+			/*margin-bottom: 20%;*/
+		}
+	</style>
+	<script type="text/javascript">
+		var maggie_cnt = 0;
+		var water_cnt = 0;
+		var masala_cnt = 0;
+
+		var rejection = [
+			"Had hoti he yaar!",
+			"Itni simple chiz bhi nhi kar sakte!",
+			"Andhe ho kya!!!",
+			"Ullu ka patha bhi aap se smart hota he!",
+			"Aap kya kar raha hai?"
+		];
+
+		var accept = [
+			"Good job",
+			"Bahot ache",
+			"Come on, you can do it",
+			"Kya baat",
+			"Bahot sahi"
+		];
+	</script>
+</head>
+<body>
+	<div>
+			<button onclick="add(this)" name="water" count="0"> Add Water </button> <br>
+			<button onclick="add(this)" name="maggie" count="0"> Add Maggie </button> <br>
+			<button onclick="add(this)" name="masala" count="0"> Add Masala </button> <br>
+			<button onclick="cooking()"> Cook </button>
+	</div>
+	<div>
+		<center>
+			<h2 id="text"> Let's make maggie </h2>
+			<img id="display" src="Images\0_0_0.png" alt="Ab muje dekh kya rahe ho!" height="300" width="500"> 
+		</center>
+	</div>
+	<script type="text/javascript">
+		function add(item)
+		{
+			item_name = item.getAttribute("name");
+			if(item_name == "maggie")
+			{
+				maggie_cnt++;
+			}
+			else if(item_name == "water")
+			{
+				water_cnt++;
+			}
+			else if(item_name == "masala")
+			{
+				masala_cnt++;
+			}
+
+			var temp_obj = document.getElementById("display");
+			var temp_label = document.getElementById("text");
+			
+			if(water_cnt==0 && maggie_cnt==0 && masala_cnt==0)
+			{
+				temp_obj.src = "Images\\"+water_cnt+"_"+maggie_cnt+"_"+masala_cnt+".png";
+				temp_label.innerHTML = "Alright, let's go";
+			}
+			
+			if(water_cnt>3 || maggie_cnt>3 || masala_cnt>3)
+			{
+				temp_label.innerHTML = rejection[Math.floor(Math.random()*rejection.length)];
+				setTimeout(function(){
+					masala_cnt = maggie_cnt = water_cnt = 0;
+					temp_obj.src = "Images\\"+water_cnt+"_"+maggie_cnt+"_"+masala_cnt+".png";
+					temp_label.innerHTML = "Koini, let's try again";
+				},2000);
+			}
+
+			else
+			{
+				temp_label.innerHTML = accept[Math.floor(Math.random()*accept.length)];
+				temp_obj.src = "Images\\"+water_cnt+"_"+maggie_cnt+"_"+masala_cnt+".png";
+			}
+		}
+
+		function cooking()
+		{
+			var temp_obj = document.getElementById("display");
+			var temp_label = document.getElementById("text");
+			
+			if(masala_cnt>0 && water_cnt>0 && maggie_cnt>0)
+			{
+				temp_obj.src = ".\\Images\\final_maggie.jpg";
+				if(masala_cnt==maggie_cnt && maggie_cnt==water_cnt)
+				{
+					temp_label.innerHTML = "Perfect!!";
+				}
+				else
+				{
+					temp_label.innerHTML = "At least you made it";
+				}
+				masala_cnt = maggie_cnt = water_cnt = 0;
+			}
+		}
+	</script>
+</body>
+</html>
